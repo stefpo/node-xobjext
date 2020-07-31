@@ -56,16 +56,6 @@ function ESNextFunction(f, obj) {
     }
 }
 
-a = { a: 1, b: 2, c: 3 }
-b = { a: 41, b: 42, d: 44 }
-
-merge( x = clone(a), b )
-console.log ( x )
-merge( x = clone(a), b, 1 )
-console.log ( x )
-merge( x = clone(a), b, 0, 1  )
-console.log ( x )
-
 exports.merge = merge
 exports.clone = clone
 exports.ESNextFunction = ESNextFunction
