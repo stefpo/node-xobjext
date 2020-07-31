@@ -6,7 +6,7 @@
 
 var util = require('util')
 
-function merge(dest, source, createProperties) {
+function merge(dest, source, createProperties, intersect) {
     if (typeof(source)=='object') {
         for (const k of Object.keys(source)) {
             let d=dest[k];
@@ -24,11 +24,19 @@ function merge(dest, source, createProperties) {
                 } 
             }
         }
+        if (intersect) {
+            for (const k of Object.keys(dest)) {
+                if ( source[k] === undefined ) {
+                    delete dest[k]
+                }
+                //    delete dest[k]
+            }
+        }
         return true;
     } else {
         return false;
     }
-}    
+}
 
 function clone (v) {
     n = {};
@@ -48,7 +56,22 @@ function ESNextFunction(f, obj) {
     }
 }
 
+a = { a: 1, b: 2, c: 3 }
+b = { a: 41, b: 42, d: 44 }
+
+merge( x = clone(a), b )
+console.log ( x )
+merge( x = clone(a), b, 1 )
+console.log ( x )
+merge( x = clone(a), b, 0, 1  )
+console.log ( x )
 
 exports.merge = merge
 exports.clone = clone
 exports.ESNextFunction = ESNextFunction
+
+
+
+
+
+
