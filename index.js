@@ -24,17 +24,18 @@ function merge(dest, source, createProperties, intersect) {
                 } 
             }
         }
-        if (intersect) {
-            for (const k of Object.keys(dest)) {
-                if ( source[k] === undefined ) {
-                    delete dest[k]
-                }
-                //    delete dest[k]
-            }
-        }
+        if (intersect) intersect(dest, source) 
         return true;
     } else {
         return false;
+    }
+}
+
+function intersect(dest, source) {
+    for (const k of Object.keys(dest)) {
+        if ( source[k] === undefined ) {
+            delete dest[k]
+        }
     }
 }
 
@@ -58,6 +59,7 @@ function ESNextFunction(f, obj) {
 
 exports.merge = merge
 exports.clone = clone
+exports.intersect = intersect
 exports.ESNextFunction = ESNextFunction
 
 
